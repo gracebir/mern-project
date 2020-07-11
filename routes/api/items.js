@@ -14,5 +14,14 @@ router.get('/',(req,res)=>{
     .then(items => res.json(items));
 });
 
+router.post('/',(req,res)=>{
+    const newItem = new ItemModel({
+        name: req.body.name
+    });
+    newItem.save()
+    .then(item => res.json(item))
+    .catch(err => console.log(err));
+})
+
 
 module.exports = router;
