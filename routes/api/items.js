@@ -25,7 +25,7 @@ router.post('/',(req,res)=>{
     newItem.save()
     .then(item => res.json(item))
     .catch(err => console.log(err));
-});
+}); 
 
 // router post api/item
 // @desc get Item
