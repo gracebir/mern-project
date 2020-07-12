@@ -9,21 +9,24 @@ import {
     TransitionGroup
 } from 'react-transition-group';
 
-import uuid from 'react-uuid';
+import { connect } from 'react-redux';
+import { getItems } from '../actions/itemActions';
 
+import uuid from 'react-uuid';
+import PropTypes from 'prop-types';
 
 export class ShppingList extends Component {
-    state = {
-        items: [
-            { id: uuid(), name: "Eggs"},
-            { id: uuid(), name: "Milk"},
-            { id: uuid(), name: "Steak"},
-            { id: uuid(), name: "Water"},
-            { id: uuid(), name: "Jus"}
-        ]
+    
+     static propTypes = {
+         getItems: PropTypes.func.isRequired,
+         items : PropTypes.object.isRequired
     }
+    componentDidMount(){
+        this.props.getItems();
+    }
+
     render() {
-        const { items } = this.state;
+        const { items } = this.props.items;
         return (
             <Container>
                 <Button color="dark"
@@ -63,5 +66,8 @@ export class ShppingList extends Component {
         )
     }
 }
+const mapStateToProps = (state) => ({
+    items : state.items
+})
 
-export default ShppingList
+export default connect(mapStateToProps, { getItems}) (ShppingList);
