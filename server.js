@@ -1,13 +1,18 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const app = express();
+// importing routes
 const items = require('./routes/api/items');
+const users = require('./routes/api/users');
+const auth = require('./routes/api/auth');
+
 const path = require('path');
 
 
-app.use(bodyParser.json());
+app.use(express.json());
 
 app.use('/api/items',items);
+app.use('/api/users',users);
+app.use('/api/auth',auth);
 
 
 // Serve static assets if we're in production
