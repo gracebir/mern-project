@@ -9,7 +9,6 @@ import {
     Label,
     Input
 } from 'reactstrap';
-import uuid from 'react-uuid';
 
 import { connect } from 'react-redux';
 import { itemAdd } from '../actions/itemActions';
@@ -52,7 +51,6 @@ export class ItemModel extends Component {
     onSubmit = (e) =>{
         e.preventDefault();
         const newitem = {
-            id: uuid(),
             name : this.state.name
         }
         this.props.itemAdd(newitem);
