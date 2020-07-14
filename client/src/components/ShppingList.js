@@ -22,7 +22,8 @@ export class ShppingList extends Component {
      static propTypes = {
          getItems: PropTypes.func.isRequired,
          items : PropTypes.object.isRequired,
-         deleteItems: PropTypes.func.isRequired
+         deleteItems: PropTypes.func.isRequired,
+         isAuthenticated: PropTypes.bool
          
     }
 
@@ -47,10 +48,11 @@ export class ShppingList extends Component {
                              {items.map(({_id, name})=>(
                                  <CSSTransition key={_id} timeout={500} classNames="fade">
                                      <ListGroupItem>
-                                         <Button className="remove-btn"
+                                         {this.props.isAuthenticated ? (<Button className="remove-btn"
                                          color="danger"
                                          size="sm"
-                                         onClick={this.onDeleteClick.bind(this, _id)}>&times;</Button>
+                                         onClick={this.onDeleteClick.bind(this, _id)}>&times;</Button>): ''}
+                                         
                                          {name}
                                      </ListGroupItem>
                                  </CSSTransition>
@@ -62,7 +64,8 @@ export class ShppingList extends Component {
     }
 }
 const mapStateToProps = (state) => ({
-    items : state.items
+    items : state.items,
+    isAuthenticated: state.auth.isAuthenticated
 })
 
 export default connect(mapStateToProps, { getItems, deleteItems}) (ShppingList);

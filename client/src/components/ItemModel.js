@@ -17,15 +17,11 @@ import PropTypes from 'prop-types';
 
 
 export class ItemModel extends Component {
-  
-    constructor(props) {
-        super(props);
-        this.wrapper = React.createRef();
-      }
 
     static propTypes = {
         itemAdd: PropTypes.func.isRequired,
-        items: PropTypes.object.isRequired
+        items: PropTypes.object.isRequired,
+        isAuthenticated: PropTypes.bool
 
     };
 
@@ -60,13 +56,13 @@ export class ItemModel extends Component {
 
     render() {
         return (
-            <div ref={this.wrapper}>
-                {this.props.children}
-                <Button 
+            <div>
+                { this.props.isAuthenticated ?  (<Button 
                 color="dark"
                 style = {{marginBottom: '2rem'}}
                 onClick={this.toggle}
-                >AddItem</Button>
+                >AddItem</Button>): (<h5 className="mb-3 ml-4">Please login before manage the items</h5>)}
+               
                 <Modal isOpen={this.state.modal}
                 toggle={this.toggle}>
                     <ModalHeader toggle={this.toggle}>Add to Shooping List</ModalHeader>
@@ -95,7 +91,8 @@ export class ItemModel extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    items : state.items
+    items : state.items,
+    isAuthenticated: state.auth.isAuthenticated
 })
 
 export default connect(mapStateToProps, { itemAdd })(ItemModel);
