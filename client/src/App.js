@@ -7,7 +7,7 @@ import {Provider} from 'react-redux';
 import store  from './store'
 import { Container } from 'reactstrap';
 import  ItemModel  from './components/ItemModel';
-import { loadUser } from './actions/authActionns';
+import { loadUser } from './actions/authActions';
 
 class App extends Component{
 
